@@ -1,15 +1,18 @@
-import sys
+#Author: John Stanwick
+#It is ok to show this solution to others
 
 #COMMENT EXPLANATIONS
 #In the for loop I use the format w to denote a small weight
 #and W to denote a larger weight than the small weight
 
+import sys
+
 maxWeight = 0
 numPairs = int(sys.stdin.readline())
 firstRow = sys.stdin.readline().split()
-firstRow = [int(i) for i in firstRow] #Convert to integer
+firstRow = [int(i) for i in firstRow]
 secondRow = sys.stdin.readline().split()
-secondRow = [int(i) for i in secondRow] #Convert to integer
+secondRow = [int(i) for i in secondRow]
 
 weightHold = 0
 weight = 0
@@ -23,8 +26,7 @@ for curWeight in firstRow:
 
     elif weightHold < curWeight and curWeight < weight:
         #If weightHold is < curWeight and curWeight is < weight then we know
-        #That the weight is in the format wW, so we should change weightHold
-        #To curWeight
+        #That the weight is in the format wW, so we should change weightHold to curWeight
         weightHold = curWeight
 
     elif curWeight == weight:
@@ -33,12 +35,12 @@ for curWeight in firstRow:
         weight = 0
 
     elif weightHold < weight and weight < curWeight:
-        #If the hold weight (always < or equal to weight)
-        #Is < (NOT EQUAL) and weight < curWeight then iterate the weights to their
-        #Respective values wW and W < w
+        #If the hold weight (always < or equal to weight) is < (NOT EQUAL) and weight < curWeight 
+        #then iterate the weights to their respective values
         weightHold = weight
         weight = curWeight
 
+#Repeat the loop for the second row
 for curWeight2 in secondRow:
     if weightHold2 < curWeight2 and weight2 == 0:
         weight2 = curWeight2
@@ -50,16 +52,10 @@ for curWeight2 in secondRow:
         weightHold2 = weight2
         weight2 = curWeight2
 
-#We print weightHold not weight because weightHold is our maximum value
+#We need this structure to account for if a weight's pair is on a different rack
 if weight == weight2 and weight > weightHold and weight > weightHold2:
     print(weight)
 elif weightHold > weightHold2:
     print(weightHold)
 else:
     print(weightHold2)
-
-#CHANGELOG
-#Submission 1: Initial Submission
-#Submission 2: Changed the iteration technique from one array to just running through both arrays
-#Submission 3: Changed the order of the operators (weight = curWeight should be first and then the others should test)
-#Submission 4: Reinstantiated to one array and also increased efficiency
